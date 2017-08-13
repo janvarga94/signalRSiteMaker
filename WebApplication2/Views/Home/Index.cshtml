@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<environment include="Development">
+    <link rel="stylesheet" href="~/css/siteMaker.css" />
+</environment>
+<environment exclude="Development">
+    <link rel="stylesheet" href="~/css/siteMaker.min.css" />
+</environment>
+
+
+<script>
+
+    var myHubProxy = window.myHubProxy = $.connection.hub.createHubProxy("janHub");
+
+    myHubProxy.on("elementAdded", data => { 
+        var element = $.parseHTML(data.newElement)[0];
+        if (data.parentId) {
+            document.getElementById(data.parentId).appendChild(element);
+        } else { 
+            document.body.appendChild(element);
+        }
+    });
+    myHubProxy.on("elementRemoved", removedId => {
+        $("#" + removedId).remove();
+    });
+    myHubProxy.on("elementUpdated", updated => {
+
+        var updatedElement = $.parseHTML(updated)[0];
+        var old = $("#" + updatedElement.id);
+        console.log(updatedElement);
+        old.replaceWith(updated);
+        attachHandlersToNewCreatedElement(document.getElementById(updatedElement.id));
+
+    });
+
+    $.connection.hub.start().done(() => {
+
+        myHubProxy.invoke("getInitData").then(data => { 
+            $(document.body).append($.parseHTML(data.currentDocument));
+            var elements = $(document.body).children().filter((index, ell) => { return ell.id && ell.id != "engine" });
+            elements.each((indx, el) => { attachHandlersToNewCreatedElement(el); });
+        /*    var elements = $.parseHTML(data.currentDocument);
+            console.log(elements)
+            elements.forEach( el => {
+                document.body.appendChild(el);
+                attachHandlersToNewCreatedElement(document.getElementById(el.id))
+            })*/
+        })
+
+    });
+
+</script>
+    
+
+
+
+<div id="engine" style="position:absolute; left:0 top:0">
+    <!-- engine are components to work with project, everithing elese is final result of project-->
+    <img id="leftTopRot" src="editImages/rot1.png" width="30" height="30">
+    <img id="rightBottomRot" src="editImages/rot2.png" width="30" height="30">
+    <img id="leftTop" src="editImages/a.png">
+    <img id="rightBottom" src="editImages/b.png">
+    <img id="replace" src="editImages/move.png" height="40" width="40">
+    <div id="editor">
+        Next creating&emsp;<input type="text" value="div" size="8" id="whichTag">
+        <br>
+        --Resize&emsp;
+        <input checked type="radio" name="rad1" id="radR1">style
+        <input type="radio" name="rad1" id="radR2">attribute
+        <Br>
+        --Align<br>
+        <img width="30" id="elAlignLeft" src="editImages/elAlignLeft.jpg">
+        <img width="30" id="elAlignCenter" src="editImages/elAlignCenter.jpg">
+        <img width="30" id="elAlignRight" src="editImages/elAlignRight.jpg">
+        <Br>
+        set Style: <input id="setStyle" type="text" size="40">
+        <br>
+        set Attribute: <input id="setAttr" type="text" size="40">
+        <br>
+        --Shadows--
+        <br>
+        Horizontal&nbsp;<input id="sh1" max="100" value="0" type="range">
+        <br>
+        Vertical&nbsp;<input id="sh2" max="100" value="0" type="range">
+        <br>
+        Blur&nbsp;<input id="sh3" max="100" value="0" type="range">
+        <br>
+        Spread&nbsp;<input id="sh4" max="100" value="0" type="range">
+        <br>
+        Color&nbsp; <input id="csh" type="text">
+        <br>
+        &emsp;&emsp;&emsp;&emsp;Text <img src="editImages/alignLeft.jpg" width="20" id="TextAlignLeft">
+        <img src="editImages/alignCenter.jpg" width="20" id="TextAlignCenter">
+        <img src="editImages/alignRight.jpg" width="20" id="TextAlignRight">
+        <br>
+        <textarea disabled="true" style="resize:none" id="text" rows="7" cols="50"></textarea>
+
+    </div>
+    <environment include="Development">
+        <script src="~/js/globalVars.js"></script>
+        <script src="~/js/functions.js"></script>
+        <script src="~/js/keys.js"></script>
+        <script src="~/js/mouse.js"></script>
+        <script src="~/js/editor.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/siteMaker.min.js"></script>
+    </environment>
+</div>
+
+
+

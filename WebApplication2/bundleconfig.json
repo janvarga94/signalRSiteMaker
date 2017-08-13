@@ -1,0 +1,27 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/css/siteMaker.min.css",
+    "inputFiles": [
+      "wwwroot/css/siteMaker.css"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/siteMaker.min.js",
+    "inputFiles": [
+      "wwwroot/js/globalVars.js",
+      "wwwroot/js/functions.js",
+      "wwwroot/js/keys.js",
+      "wwwroot/js/mouse.js",
+      "wwwroot/js/editor.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": false
+    },
+    "sourceMap": false
+  }
+]
