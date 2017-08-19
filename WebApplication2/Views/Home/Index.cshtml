@@ -30,7 +30,6 @@
 
         var updatedElement = $.parseHTML(updated)[0];
         var old = $("#" + updatedElement.id);
-        console.log(updatedElement);
         old.replaceWith(updated);
         attachHandlersToNewCreatedElement(document.getElementById(updatedElement.id));
 
