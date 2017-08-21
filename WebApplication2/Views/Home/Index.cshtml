@@ -15,11 +15,11 @@
 
     var myHubProxy = window.myHubProxy = $.connection.hub.createHubProxy("janHub");
 
-    myHubProxy.on("elementAdded", data => { 
+    myHubProxy.on("elementAdded", data => {
         var element = $.parseHTML(data.newElement)[0];
         if (data.parentId) {
             document.getElementById(data.parentId).appendChild(element);
-        } else { 
+        } else {
             document.body.appendChild(element);
         }
     });
@@ -27,7 +27,7 @@
         $("#" + removedId).remove();
     });
     myHubProxy.on("elementUpdated", updated => {
-
+        console.log("updating");
         var updatedElement = $.parseHTML(updated)[0];
         var old = $("#" + updatedElement.id);
         old.replaceWith(updated);
@@ -35,28 +35,42 @@
 
     });
 
-    $.connection.hub.start().done(() => {
+    myHubProxy.on("receiveChatMessage", (nickname, message) => {
+        var tagsToReplace = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;'
+        };
 
-        myHubProxy.invoke("getInitData").then(data => { 
+        function replaceTag(tag) {
+            return tagsToReplace[tag] || tag;
+        }
+
+        function safe_tags_replace(str) {
+            return str.replace(/[&<>]/g, replaceTag);
+        }
+
+        $("#chatMessages").prepend(safe_tags_replace(nickname) + ": " + safe_tags_replace(message) + "\n");
+    })
+    
+
+    $.connection.hub.start().done(() => {
+        console.log("connection started")
+        myHubProxy.invoke("getInitData").then(data => {
+            console.log(data.currentDocument)
             $(document.body).append($.parseHTML(data.currentDocument));
             var elements = $(document.body).children().filter((index, ell) => { return ell.id && ell.id != "engine" });
             elements.each((indx, el) => { attachHandlersToNewCreatedElement(el); });
-        /*    var elements = $.parseHTML(data.currentDocument);
-            console.log(elements)
-            elements.forEach( el => {
-                document.body.appendChild(el);
-                attachHandlersToNewCreatedElement(document.getElementById(el.id))
-            })*/
         })
 
     });
 
 </script>
-    
 
 
 
-<div id="engine" style="position:absolute; left:0 top:0">
+
+<div id="engine" style="position:absolute; left:0px; top:0px">
     <!-- engine are components to work with project, everithing elese is final result of project-->
     <img id="leftTopRot" src="editImages/rot1.png" width="30" height="30">
     <img id="rightBottomRot" src="editImages/rot2.png" width="30" height="30">
@@ -95,8 +109,18 @@
         <img src="editImages/alignCenter.jpg" width="20" id="TextAlignCenter">
         <img src="editImages/alignRight.jpg" width="20" id="TextAlignRight">
         <br>
-        <textarea disabled="true" style="resize:none" id="text" rows="7" cols="50"></textarea>
-
+        <textarea disabled style="resize:none" id="text" rows="7" cols="50"></textarea>
+        <div id="jn4vkd0sj59j6lyvpgz" style="background-color: rgba(0, 0, 0, 0.1); position: fixed; left: 500.5px; top: 46px; width: 361px; height: 368px;">
+            <button  onclick="sendMessage()" id="1tk9lrjilpmj6lyw9co" style="background-color: rgba(0, 0, 0, 0.1); position: absolute; left: 275px; top: 337px; width: 77px; height: 26px;">
+                send
+            </button>
+            <span id="6szhpc2j9i3j6lyxh87" style="background-color: rgba(0, 0, 0, 0.1); position: absolute; left: 132px; top: 300.5px; width: 73px; height: 27px;">
+            nickname:
+            </span>
+            <input id="nicknameInput" style="background-color: rgba(0, 0, 0, 0.1); position: absolute; left: 213.5px; top: 301.5px; width: 142px; height: 29px;">
+            <input id="messageInput" style="background-color: rgba(0, 0, 0, 0.1); position: absolute; left: 8.5px; top: 336px; width: 264px; height: 26px;">
+            <textarea id="chatMessages" style="background-color: rgba(0, 0, 0, 0.1); position: absolute; left: 7.5px; top: 9px; width: 344px; height: 286px;"></textarea>
+        </div>
     </div>
     <environment include="Development">
         <script src="~/js/globalVars.js"></script>
@@ -104,6 +128,7 @@
         <script src="~/js/keys.js"></script>
         <script src="~/js/mouse.js"></script>
         <script src="~/js/editor.js"></script>
+        <script src="~/js/chat.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/js/siteMaker.min.js"></script>

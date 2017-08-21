@@ -23,6 +23,7 @@ namespace WebApplication2
 
         public object getInitData()
         {
+
             return new { connectionId =  Context.ConnectionId, currentDocument = doc.DocumentNode.SelectSingleNode("//body").InnerHtml };
         }
 
@@ -69,13 +70,17 @@ namespace WebApplication2
             var newChild = docy.DocumentNode.ChildNodes[0];
             var idOfNewChild = newChild.Id;
 
-            var oldChild = doc.DocumentNode.SelectSingleNode($"//*[@id={newChild.Id}]");
+            var oldChild = doc.DocumentNode.SelectSingleNode($"//*[@id='{newChild.Id}']");
             if(newChild != null && oldChild != null)
             {
                 var parent = oldChild.ParentNode;
                     parent.ReplaceChild(newChild, oldChild);
                 Clients.Others.elementUpdated(htmlElement);
             }
+        }
+
+        public void sendMessageToAll(string nick, string message) {
+            Clients.All.receiveChatMessage(nick, message);
         }
     }
 }
