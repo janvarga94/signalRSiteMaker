@@ -88,14 +88,14 @@ function elAlignCenter(){
 		selected.el.style['position'] = 'absolute';
 		var parentWidth=parseInt(window.getComputedStyle(selected.el.parentElement).width);
 		var elWidth=parseInt(window.getComputedStyle(selected.el).width);
-		selected.el.style.left=parentWidth/2-elWidth/2;
+		selected.el.style.left=(parentWidth/2-elWidth/2) + "px";
 	fixReplace(selected.el);
 }
 function elAlignRight(){
 		selected.el.style['position'] = 'absolute';
 		var parentWidth=parseInt(window.getComputedStyle(selected.el.parentElement).width);
 		var elWidth=parseInt(window.getComputedStyle(selected.el).width);
-		selected.el.style.left=parentWidth-elWidth;
+		selected.el.style.left=(parentWidth-elWidth) + "px";
 	fixReplace(selected.el);
 }
 function exportProject(filename){ // ctrl+s is save project, shift+s is export

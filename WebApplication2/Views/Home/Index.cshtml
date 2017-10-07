@@ -59,7 +59,7 @@
         myHubProxy.invoke("getInitData").then(data => {
             console.log(data.currentDocument)
             $(document.body).append($.parseHTML(data.currentDocument));
-            var elements = $(document.body).children().filter((index, ell) => { return ell.id && ell.id != "engine" });
+            var elements = $(document.body).find('*').filter((index, ell) => { return ell.id && ell.id != "engine" });
             elements.each((indx, el) => { attachHandlersToNewCreatedElement(el); });
         })
 
@@ -110,7 +110,8 @@
         <img src="editImages/alignRight.jpg" width="20" id="TextAlignRight">
         <br>
         <textarea disabled style="resize:none" id="text" rows="7" cols="50"></textarea>
-        <div id="jn4vkd0sj59j6lyvpgz" style="background-color: rgba(0, 0, 0, 0.1); position: fixed; left: 500.5px; top: 46px; width: 361px; height: 368px;">
+        <div id="jn4vkd0sj59j6lyvpgz" style="background-color: white; border:black 1px dotted; position: fixed; right:10px; top: 46px; width: 361px; height: 368px;">
+            Chat
             <button  onclick="sendMessage()" id="1tk9lrjilpmj6lyw9co" style="background-color: rgba(0, 0, 0, 0.1); position: absolute; left: 275px; top: 337px; width: 77px; height: 26px;">
                 send
             </button>
@@ -119,16 +120,16 @@
             </span>
             <input id="nicknameInput" style="background-color: rgba(0, 0, 0, 0.1); position: absolute; left: 213.5px; top: 301.5px; width: 142px; height: 29px;">
             <input id="messageInput" style="background-color: rgba(0, 0, 0, 0.1); position: absolute; left: 8.5px; top: 336px; width: 264px; height: 26px;">
-            <textarea id="chatMessages" style="background-color: rgba(0, 0, 0, 0.1); position: absolute; left: 7.5px; top: 9px; width: 344px; height: 286px;"></textarea>
+            <textarea  id="chatMessages" style="background-color: rgba(0, 0, 0, 0.1); position: absolute; left: 7.5px; top: 20px; width: 344px; height: 276px;"></textarea>
         </div>
     </div>
     <environment include="Development">
-        <script src="~/js/globalVars.js"></script>
-        <script src="~/js/functions.js"></script>
-        <script src="~/js/keys.js"></script>
-        <script src="~/js/mouse.js"></script>
-        <script src="~/js/editor.js"></script>
-        <script src="~/js/chat.js"></script>
+        <script src="typescriptGeneratedScripts/js/globalVars.js"></script>
+        <script src="typescriptGeneratedScripts/js/functions.js"></script>
+        <script src="typescriptGeneratedScripts/js/keys.js"></script>
+        <script src="typescriptGeneratedScripts/js/mouse.js"></script>
+        <script src="typescriptGeneratedScripts/js/editor.js"></script>
+        <script src="typescriptGeneratedScripts/js/chat.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/js/siteMaker.min.js"></script>

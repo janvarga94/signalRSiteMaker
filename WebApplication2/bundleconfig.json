@@ -12,11 +12,13 @@
   {
     "outputFileName": "wwwroot/js/siteMaker.min.js",
     "inputFiles": [
+      "wwwroot/ts/test.js",
       "wwwroot/js/globalVars.js",
       "wwwroot/js/functions.js",
       "wwwroot/js/keys.js",
       "wwwroot/js/mouse.js",
-      "wwwroot/js/editor.js"
+      "wwwroot/js/editor.js",
+      "wwwroot/js/chat.js"
     ],
     "minify": {
       "enabled": false,

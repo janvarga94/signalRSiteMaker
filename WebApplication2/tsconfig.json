@@ -1,0 +1,11 @@
+﻿{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "wwwroot/typescriptGeneratedScripts",
+    "allowJs": true,
+    "target": "es5"
+  },
+  "include": [
+    "Client"
+  ]
+}

@@ -45,7 +45,7 @@ document.onkeydown= function(e){
 		if(selected.el!=document.body)
 			Clipboard=selected.el.outerHTML;
 	}
-	if(Keyboard.keyToBool['CONTROL'] && Keyboard.keyToBool['V']){			//cut
+	if(Keyboard.keyToBool['CONTROL'] && Keyboard.keyToBool['X']){			//cut
 		if(selected.el!=document.body){
 			Clipboard=selected.el.outerHTML;
 			var parent=selected.el.parentElement;
@@ -53,19 +53,16 @@ document.onkeydown= function(e){
 			changeSelection(parent);
 		}
 	}
-	if(Keyboard.keyToBool['CONTROL'] && Keyboard.keyToBool['X']){				// paste
+	if(Keyboard.keyToBool['CONTROL'] && Keyboard.keyToBool['V']){				// paste
 		if(Clipboard!=null){
 			var div=document.createElement('div');
-			div.innerHTML = Clipboard;
-			div.childNodes[0].oncontextmenu= function(ev) {
-			    ev.stopPropagation();
-			    ev.preventDefault();
-			    if(ev.which==3){
-			    	changeSelection(this);
-			    }
-			    return false;
-			};
-			selected.el.appendChild(div.childNodes[0]);
+            div.innerHTML = Clipboard;
+            var elementToPaste = div.childNodes[0];
+            elementToPaste.id = generateUniqueId();
+            attachHandlersToNewCreatedElement(elementToPaste);
+            selected.el.appendChild(elementToPaste);
+            var selectedId = selected.el.nodeName.toLowerCase() == "body" ? "" : selected.el.id;
+            window.myHubProxy.invoke("addElement", getOterHtmlForElement(elementToPaste), selectedId);
 		}
 	}
 	if(Keyboard.keyToBool['SHIFT'] && Keyboard.keyToBool['S']){			//save in some way
