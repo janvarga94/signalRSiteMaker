@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "wwwroot/typescriptGeneratedScripts",
     "allowJs": true,
-    "target": "es5"
+    "target": "es5",
+    "module": "amd"
   },
   "include": [
     "Client"

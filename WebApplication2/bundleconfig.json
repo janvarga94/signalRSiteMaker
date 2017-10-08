@@ -1,6 +1,6 @@
 ﻿[
   {
-    "outputFileName": "wwwroot/css/siteMaker.min.css",
+    "outputFileName": "wwwroot/dist/css/siteMaker.min.css",
     "inputFiles": [
       "wwwroot/css/siteMaker.css"
     ],
@@ -10,7 +10,7 @@
     }
   },
   {
-    "outputFileName": "wwwroot/js/siteMaker.min.js",
+    "outputFileName": "wwwroot/dist/js/siteMaker.min.js",
     "inputFiles": [
       "wwwroot/ts/test.js",
       "wwwroot/js/globalVars.js",

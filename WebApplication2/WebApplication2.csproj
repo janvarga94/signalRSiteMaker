@@ -25,34 +25,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Client\js\chat.js">
+    <Content Include="Client\editor.ts">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Client\js\chat.js.map">
+    <Content Include="Client\functions.ts">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Client\js\editor.js">
+    <Content Include="Client\globalVars.ts">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Client\js\functions.js">
+    <Content Include="Client\keys.ts">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Client\js\globalVars.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Client\js\keys.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Client\js\mouse.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Client\js\siteMaker.min.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Client\ts\test.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Client\ts\test.js.map">
+    <Content Include="Client\mouse.ts">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
@@ -69,8 +54,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="Client\js\chat.ts" />
-    <TypeScriptCompile Include="Client\ts\test.ts" />
+    <TypeScriptCompile Include="Client\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Client\states\States.ts" />
   </ItemGroup>
 
 </Project>
